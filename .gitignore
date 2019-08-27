@@ -27,3 +27,4 @@ compilador_wombat-*.tar
 
 
 .gitignore
+*.lock
