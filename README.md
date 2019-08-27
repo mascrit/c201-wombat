@@ -4,7 +4,7 @@
 
 - Romero Andrade Cristian
 - Rocha García Erick Hazel
-- (Añadir integrantes)
+- Arguelles Macosay Mariana
 
 **TODO: Add description**
 
