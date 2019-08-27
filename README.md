@@ -3,6 +3,7 @@
 ### Integrantes
 
 - Romero Andrade Cristian
+- Rocha García Erick Hazel
 - (Añadir integrantes)
 
 **TODO: Add description**
