@@ -1,11 +1,12 @@
-defmodule CompiladorWombat.MixProject do
+defmodule Compiladorwombat.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :compilador_wombat,
+      app: :compiladorwombat,
       version: "0.1.0",
       elixir: "~> 1.8",
+      escript: [main_module: Compiladorwombat],
       start_permanent: Mix.env() == :prod,
       deps: deps(),
 
