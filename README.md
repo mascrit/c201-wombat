@@ -30,8 +30,8 @@ lib
 ├── compiladorwombat.ex
 └── wc2
     ├── analizador.ex
-	├── lexer.ex
-	└── otroArchivo.ex
+    ├── lexer.ex
+    └── otroArchivo.ex
 	
 ```
 
