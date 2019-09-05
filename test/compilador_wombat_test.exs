@@ -1,8 +1,8 @@
-defmodule CompiladorWombatTest do
+defmodule CompiladorwombatTest do
   use ExUnit.Case
-  doctest CompiladorWombat
+  doctest Compiladorwombat
 
   test "greets the world" do
-    assert CompiladorWombat.hello() == :world
+    assert Compiladorwombat.hello() == :world
   end
 end
