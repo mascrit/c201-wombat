@@ -1,11 +1,11 @@
 #!/usr/bin/escript
 # -*- coding: UTF-8 -*-
 
-defmodule Wc2.Arbol do
+defmodule Arbol do
   @moduledoc"""
   Define la estructura del arbol de sintaxis abstracta
   """
-  defstruct [:node, :val, :left, :right]
+  defstruct [:node, :val, :lleaf, :rleaf]
 
   
   @doc"""
@@ -13,11 +13,11 @@ defmodule Wc2.Arbol do
   """
   def print(tree) do
     cond do
-      is_map(tree.left) ->
-        print(tree.left)
+      is_map(tree.lleaf) ->
+        print(tree.lleaf)
         tree.node |> Atom.to_string |> IO.puts
-      is_map(tree.right) ->
-        print(tree.right)
+      is_map(tree.rleaf) ->
+        print(tree.rleaf)
         tree.node |> Atom.to_string |> IO.puts
       :true ->
         tree.node |> Atom.to_string |> IO.puts
@@ -26,6 +26,5 @@ defmodule Wc2.Arbol do
     
   end
 
-end
 
 end
