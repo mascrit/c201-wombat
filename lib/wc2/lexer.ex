@@ -9,37 +9,34 @@ defmodule Wc2.Lexer do
   @doc """
   Lee un archivo y devuelve una lista de tokens
   """
-  @spec lexer(String.t(),integer)::list 
-    def lexer(tokens, numero_linea) do
-      
-      clave=keywords()
-      const=~r(^[0-9]+)
-      espacio=~r(^[ \h]+)
-      linea=~r(^[\n\\|\r\n])
-      cadena_caracter=~r/^"(?:[""\\]|\\.)*"/
-
-      cond do
-    
-        tokens==""->[]
-        Regex.match?(espacio,tokens)->lexer(Regex.replace(espacio,tokens,""),num_linea)
-        Regex.match?(linea,tokens)->lexer(Regex.replace(espacio,tokens,""),num_linea+1)
-        Regex.match?(cadena_caracter,tokens)->string=List.first(Regex.run(cadena_caracter,tokens,[{:capture,:first}]))
-        token={:ident,num_linea,[id]}
-
-      end 
+  def scanner_words(word) do
+    Enum.flat_map(word, &lexer_raw_tokens/1)
+  end
+  def get_constant(prog) do
+    case Regex.run(~r/^\d+/,prog) do
+      [value] -> {{:constant,String.to_integer(value)}, 
+      String.trim_leading(prog,value)}
     end
-    def devuelve_token(token) do
-      case token do 
-        {:type,:kint}->"int"
-        {:kmain}->"main()"
-        {:open_paren}->"("
-        {:close_paren}->")"
-        {:open_brace}->"{"
-        {:kreturn}->"return"
-        {:const, 2}->"2"
-        {:semicolon}->";"
-        {:close_brance}->"}"   
-      
+  end
+  
+  def lexer_raw_tokens(prog) when prog != "" do 
+    {token, rest}=
+      case prog do
+        "int"<> rest -> {:kint,rest}
+        "main()"<> rest -> {:kmain,rest}
+        "{"<> rest -> {:open_brace,rest}
+        "}"<> rest -> {:close_brace,rest}
+        "("<> rest -> {:open_paren,rest}
+        ")"<> rest -> {:close_paren,rest}
+        "return"<> rest -> {:kreturn,rest}
+        ";"<> rest -> {:semicolon,rest}
+        
+        rest -> get_constant(rest)
       end
-                
-    end
+  remaining_tokens =lexer_raw_tokens(rest)
+  [token | remaining_tokens]  
+  end
+  def lexer_raw_tokens(rest) do
+   []
+  end
+end
