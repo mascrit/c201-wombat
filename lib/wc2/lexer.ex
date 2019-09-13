@@ -18,7 +18,7 @@ defmodule Wc2.Lexer do
     Enum.flat_map(File_whitout_spaces, &lexer_raw_tokens/1)
   end
   def get_constant(prog) do
-    case Regex.run(~r/^[\d+]/,prog) do
+    case Regex.run(~r/\d+/,prog) do
       [value] -> {{:constant,String.to_integer(value)}, 
       String.trim_leading(prog,value)}
     end
