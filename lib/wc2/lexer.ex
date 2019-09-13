@@ -6,14 +6,16 @@ defmodule Wc2.Lexer do
   Analizador Léxico
   """
 
-  @doc """
-  Lee un archivo y devuelve una lista de tokens
+ @doc """
+  La funcion sanitizer borra los espacios en un archivo o cadena
   """
   def sanitizer(File) do
     File_whitout_spaces=String.trim(file)
     Regex.split(~r/\s+/,File_whitout_spaces)
   end
-
+ @doc """
+  Lee un archivo y devuelve una lista de tokens
+  """
   def scanner_words(File_whitout_spaces) do
     Enum.flat_map(File_whitout_spaces, &lexer_raw_tokens/1)
   end
