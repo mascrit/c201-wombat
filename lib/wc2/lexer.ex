@@ -9,11 +9,16 @@ defmodule Wc2.Lexer do
   @doc """
   Lee un archivo y devuelve una lista de tokens
   """
-  def scanner_words(word) do
-    Enum.flat_map(word, &lexer_raw_tokens/1)
+  def sanitizer(File) do
+    File_whitout_spaces=String.trim(file)
+    Regex.split(~r/\s+/,File_whitout_spaces)
+  end
+
+  def scanner_words(File_whitout_spaces) do
+    Enum.flat_map(File_whitout_spaces, &lexer_raw_tokens/1)
   end
   def get_constant(prog) do
-    case Regex.run(~r/^\d+/,prog) do
+    case Regex.run(~r/^[\d+]/,prog) do
       [value] -> {{:constant,String.to_integer(value)}, 
       String.trim_leading(prog,value)}
     end
@@ -39,4 +44,8 @@ defmodule Wc2.Lexer do
   def lexer_raw_tokens(rest) do
    []
   end
+  def test() do
+    sanitizer('int main() { return 2; }')
+  end
+
 end
