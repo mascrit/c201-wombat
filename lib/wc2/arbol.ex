@@ -1,7 +1,7 @@
 #!/usr/bin/escript
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
-defmodule Wc2.Arbol do
+defmodule Arbol do
   @moduledoc"""
   Define la estructura del arbol de sintaxis
   abstracta

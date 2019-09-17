@@ -23,7 +23,7 @@ defmodule Wc2.Lexer do
   
   def get_constant(prog) do
     case Regex.run(~r/^\d+/,prog) do
-      [value] -> {{:constant,String.to_integer(value)},
+      [value] -> {{:const, String.to_integer(value)},
 		 String.trim_leading(prog,value)}
     end
   end
@@ -32,7 +32,9 @@ defmodule Wc2.Lexer do
     {token, rest}=
       case prog do
         "int"<> rest -> {:kint, rest}
-        "main()"<> rest -> {:kmain, rest}
+        "main"<> rest -> {:kmain, rest}
+	"(" <> rest -> {:open_paren, rest}
+	")" <> rest -> {:close_paren, rest}
         "{"<> rest -> {:open_brace, rest}
         "}"<> rest -> {:close_brace, rest}
         "("<> rest -> {:open_paren, rest}
