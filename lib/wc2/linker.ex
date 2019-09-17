@@ -7,7 +7,7 @@ defmodule Wc2.Linker do
 
     File.write!(assembly_path, assembler)
     
-    System.cmd("gcc", [assembly_file_name, "-o #{binary_file_name}"], cd: output_dir_name)
+    System.cmd("gcc", [assembly_file_name, "-o#{binary_file_name}.out"], cd: output_dir_name)
     File.rm!(assembly_path)
   end
 end

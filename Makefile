@@ -1,4 +1,4 @@
 make:
 	mix escript.build
 clean:
-	rm compiladorwombat
+	rm -f compiladorwombat ejemplo/*.out
