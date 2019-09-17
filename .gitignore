@@ -29,3 +29,5 @@ compilador_wombat-*.tar
 .elixir_ls*
 
 .#*/n.vscode
+
+compiladorwombat
