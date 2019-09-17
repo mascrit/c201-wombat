@@ -6,6 +6,27 @@
 - Rocha García Erick Hazel
 - Arguelles Macosay Mariana
 
+
+## Ejecución
+
+ejecutar:
+
+```zsh
+> make
+```
+
+para probar
+
+```zsh
+> ./compiladorwombat archivo.c
+```
+
+limpiar binario
+
+```zsh
+make clean
+```
+
 **TODO: Add description**
 
 ## Installation
