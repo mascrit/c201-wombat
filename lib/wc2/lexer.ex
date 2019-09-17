@@ -1,5 +1,5 @@
 #!/usr/bin/escript
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 defmodule Wc2.Lexer do
   @moduledoc """
@@ -7,15 +7,24 @@ defmodule Wc2.Lexer do
   """
 
   @doc """
+  La funcion sanitizer borra los espacios en un archivo o cadena
+  """
+  def sanitizer(file) do
+    file_whitout_spaces = String.trim(file)
+    IO.inspect(Regex.split(~r/\s+/, file_whitout_spaces))
+  end
+  
+  @doc """
   Lee un archivo y devuelve una lista de tokens
   """
-  def scanner_words(word) do
-    Enum.flat_map(word, &lexer_raw_tokens/1)
+  def scanner_words(file_whitout_spaces) do
+    Enum.flat_map(file_whitout_spaces, &lexer_raw_tokens/1)
   end
+  
   def get_constant(prog) do
-    case Regex.run(~r/^\d+/, prog) do
-      [value] -> {{:const, String.to_integer(value)},
-		 String.trim_leading(prog, value)}
+    case Regex.run(~r/^\d+/,prog) do
+      [value] -> {{:constant,String.to_integer(value)},
+		 String.trim_leading(prog,value)}
     end
   end
 
@@ -36,12 +45,20 @@ defmodule Wc2.Lexer do
     remaining_tokens =lexer_raw_tokens(rest)
     [token | remaining_tokens]
   end
+  
 
   def lexer_raw_tokens(_rest) do
     []
   end
 
-  def test() do
-    scanner_words('int main() { return 2; }')
+  def test_1() do
+    "int main() { return 2; }"
+    |> sanitizer
+    |> scanner_words
   end
+
+  def test() do
+    sanitizer("int main() { return 2; }")
+  end
+
 end
