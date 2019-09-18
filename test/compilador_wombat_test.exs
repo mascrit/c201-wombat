@@ -23,43 +23,43 @@ defmodule CompiladorwombatTest do
   # end
 
   test "valid new lines" do
-    assert Compiladorwombat.compile_file("test/stage_1/valid/newlines.c") == :ok
+    assert Compiladorwombat.compile_file("test/stage_1/valid/newlines.c") == 0
   end
 
   test "valid no newlines" do
-    assert Compiladorwombat.compile_file("test/stage_1/valid/no_newlines.c") == :ok
+    assert Compiladorwombat.compile_file("test/stage_1/valid/no_newlines.c") == 0
   end
 
   test "valid return 0" do
-    assert Compiladorwombat.compile_file("test/stage_1/valid/return_0.c") == :ok
+    assert Compiladorwombat.compile_file("test/stage_1/valid/return_0.c") == 0
   end
 
   test "valid spaces" do
-    assert Compiladorwombat.compile_file("test/stage_1/valid/spaces.c") == :ok
+    assert Compiladorwombat.compile_file("test/stage_1/valid/spaces.c") == 0
   end
 
   test "invalid missing_paren" do
-    assert Compiladorwombat.compile_file("test/stage_1/invalid/missing_paren.c") == :error
+    assert elem(Compiladorwombat.compile_file("test/stage_1/invalid/missing_paren.c"), 0) == :error
   end
 
   test "invalid missing_retval" do
-    assert Compiladorwombat.compile_file("test/stage_1/invalid/missing_retval.c") == :error
+    assert elem(Compiladorwombat.compile_file("test/stage_1/invalid/missing_retval.c"), 0) == :error
   end
 
   test "invalid no_brace" do
-    assert Compiladorwombat.compile_file("test/stage_1/invalid/no_brace.c") == :error
+    assert elem(Compiladorwombat.compile_file("test/stage_1/invalid/no_brace.c"), 0) == :error
   end
 
   test "invalid no_semicolon" do
-    assert Compiladorwombat.compile_file("test/stage_1/invalid/no_semicolon.c") == :error
+    assert elem(Compiladorwombat.compile_file("test/stage_1/invalid/no_semicolon.c"), 0) == :error
   end
 
   test "invalid no_space" do
-    assert Compiladorwombat.compile_file("test/stage_1/invalid/no_space.c") == :error
+    assert elem(Compiladorwombat.compile_file("test/stage_1/invalid/no_space.c"), 0) == :error
   end
 
   test "invalid wrong_case" do
-    assert Compiladorwombat.compile_file("test/stage_1/invalid/wrong_case.c") == :error
+    assert elem(Compiladorwombat.compile_file("test/stage_1/invalid/wrong_case.c"), 0) == :error
   end
 
 

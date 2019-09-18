@@ -47,18 +47,17 @@ defmodule Compiladorwombat do
     |> Wc2.Lexer.scanner_words
     |> IO.inspect(label: "\n Salida Lexer: ")
     |> Wc2.Analizador.parse_program
+    |> IO.inspect(label: "\nSalida parser: ")
+
     case sts do
-      {:error, _message} ->
-	:error
+      {:error, text} ->
+	{:error, text}
       _ ->
 	sts
-	|> IO.inspect(label: "\nSalida parser: ")
 	|> Wc2.CodeGen.gen_code()
 	|> Wc2.Linker.get_bin(asm_path)
-    :ok
+	0
     end
-      
-    
   end
 
   def probes(path) do
