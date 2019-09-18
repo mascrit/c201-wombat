@@ -3,7 +3,6 @@
 \usepackage[letterpaper,left=1.5cm,right=1.5cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
-\usepackage{listingsutf8}
 \usepackage{graphicx}
 
 \begin{document}
@@ -44,6 +43,49 @@
 \section{Plan de Proyecto}
 
 \section{Arquitectura del Compilador}
+
+La arquitectura del compilador es simple utilizado el gestor de proyectos de \textit{elixir}
+\textit{mix}, la cual generá las herramientas suficientes para las pruebas y compilación. La
+siguiente estructura que se decidio fue la siguiente:
+
+\begin{itemize}
+\item \_build
+\item config
+\item ejemplo
+  \begin{itemize}
+  \item return\_2.c
+  \end{itemize}
+\item lib
+  \begin{itemize}
+  \item compiladorwombat.ex
+  \item wc2
+    \begin{itemize}
+    \item analizador.ex
+    \item arbol.ex
+    \item code\_gen.tex
+    \item lexer.ex
+    \item linker.ex
+    \end{itemize}
+  \item Makefile
+  \item miscelanea
+  \item mix.exs
+  \item mix.lock
+  \item README.ms
+  \item test
+    \begin{itemize}
+    \item compilador\_wombat\_test.exs
+    \item stage\_1\footnote{Pruebas de Nora}
+    \item test\_helper.exs
+    \end{itemize}
+
+  \end{itemize}
+
+\end{itemize}
+
+Ya que así se tiene separado las etapas del compilador y es fácil extender y dar mantenimiento a dicha
+estructura tomando a todos los archivos necesarios de manera independiente.
+
+
 
 \section{Plan de Pruebas y de ``Suites''}
 
