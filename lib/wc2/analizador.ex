@@ -1,5 +1,5 @@
 #!/usr/bin/escript
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 defmodule Wc2.Analizador do
 
@@ -14,7 +14,7 @@ defmodule Wc2.Analizador do
         case rest_list do
           [] ->
 	    %Arbol{node: :program, lleaf: nodefun}
-          _ -> "Error more elements"
+          _ -> {:error, "Error more elements"}
         end
     end
   end

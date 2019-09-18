@@ -41,16 +41,32 @@ defmodule Compiladorwombat do
     IO.puts("Compilado: " <> path)
     asm_path = String.replace_trailing(path, ".c", ".s")
     
-    File.read!(path)
+    sts =File.read!(path)
     |> Wc2.Lexer.sanitizer
     |> IO.inspect(label: "\n Salida del desinfectante: ")
     |> Wc2.Lexer.scanner_words
     |> IO.inspect(label: "\n Salida Lexer: ")
     |> Wc2.Analizador.parse_program
-    |> IO.inspect(label: "\nSalida parser: ")
-    |> Wc2.CodeGen.gen_code()
-#    |> IO.inspect(label: "\nSalida Gen: ")
-    |> Wc2.Linker.get_bin(asm_path)
+    case sts do
+      {:error, _message} ->
+	:error
+      _ ->
+	sts
+	|> IO.inspect(label: "\nSalida parser: ")
+	|> Wc2.CodeGen.gen_code()
+	|> Wc2.Linker.get_bin(asm_path)
+    :ok
+    end
+      
+    
+  end
+
+  def probes(path) do
+    case compile_file(path) do
+      :error ->
+	:error
+      _ -> :ok
+    end
   end
 
   
