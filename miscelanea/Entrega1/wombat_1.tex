@@ -45,8 +45,8 @@
 \section{Arquitectura del Compilador}
 
 La arquitectura del compilador es simple utilizado el gestor de proyectos de \textit{elixir}
-\textit{mix}, la cual generá las herramientas suficientes para las pruebas y compilación. La
-siguiente estructura que se decidio fue la siguiente:
+\textit{mix}, la cual genera las herramientas suficientes para las pruebas y compilación. La
+siguiente estructura que se decidió fue la siguiente:
 
 \begin{itemize}
 \item \_build
@@ -85,9 +85,16 @@ siguiente estructura que se decidio fue la siguiente:
 Ya que así se tiene separado las etapas del compilador y es fácil extender y dar mantenimiento a dicha
 estructura tomando a todos los archivos necesarios de manera independiente.
 
-
-
 \section{Plan de Pruebas y de ``Suites''}
+
+El plan consiste en pasado un tiempo de desarrollo de los módulos del
+compilador, se comenzará las pruebas mediante una  simple regla, ``Lo
+que se debe de recibir, lo que se debe de mandar'', por ejemplo en el
+caso del lexer, lo que este recibe es una lista de cadenas de caracteres
+[``int'', ``main'', etc] y lo que debe de mandar en una lista y/o tupla de
+\textit{tokens} [\textbf{:kint}, \textbf{:kmain}, etc]. Ya completado esta ``etapa''
+de pruebas, se comenzará con las pruebas de \textbf{Nora}, la cual se espera solo
+tener errores en sentencias especificas conservando el funcionamiento original.
 
 \section{Conclusiones}
 
