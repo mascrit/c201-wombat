@@ -7,6 +7,10 @@
 \usepackage{pdfpages}
 \usepackage{subfigure}
 \usepackage{float}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+
 
 \begin{document}
 \begin{titlepage}
@@ -25,8 +29,13 @@
     \LARGE{Equipo: Wombat}
     \vfill
   \end{center}  
+
+  \Large{Datos del Cliente:
+    
+    \hspace{2cm}} Ing.\ Norberto Jesus Ortigoza Marquez
+  \vfill
   
-  \Large{Integrantes:
+  \Large{Equipo de Desarrollo:
     
     \hspace{2cm}Romero Andrade Cristian
     
@@ -43,14 +52,43 @@
 
 \section{Introducción}
 
+\begin{flushright}
+\textit{Un compilador para un pequeño Subconjunto de C,}  
+\end{flushright}
+
+Este proyecto trata acerca de crear un compilador en uno de los lenguajes de
+programación permitidos, en este caso hemos elegido Elixir como el lenguaje
+del proyecto. Para poder empezar debemos saber ¿Qué es un compilador?, un
+compilador es de forma sencilla un programa que traduce un lenguaje a lenguaje
+máquina es decir un lenguaje de alto nivel (palabras entendibles que puedan
+expresar que queremos que haga un programa) a lenguaje maquina (conjunto
+de números cuyo significado es directamente una orden al microprocesador).
+Para la creación de un compilador existen ciertos procesos o pasos para poder
+hacer las traducciones o compilaciones dependiendo sea el caso y la estructura
+que tendrá el compilador, debido a la complejidad de los compiladores, en esta
+o primera entrega solo haremos una parte de un compilador, aun así manteniendo
+una estructura completa.
+
 \section{Plan de Proyecto}
 
 \begin{figure}[H]
   \centering
-  \subfigure{\includegraphics[width=18cm]{../img/pag-2}}
-  \vspace{10mm}
-  \subfigure{\includegraphics[width=18cm]{../img/pag-4}}
+  \subfigure{\includegraphics[width=17cm]{../img/pag-2}}
 \end{figure}
+\begin{figure}[H]
+  \subfigure{\includegraphics[width=17cm]{../img/pag-4}}
+\end{figure}
+
+Las próximas tareas al cerrar esta entrega, a parte de la adición de los
+operadores unarios, será obtener el error de compilación junto con el número
+de línea.
+
+\subsection{Obstáculos}
+
+\begin{itemize}
+\item Si no se obtiene respuesta constante con el equipo y sus avances, el trabajo
+  se juntará y \textit{puede} no llegar al objetivo de esta primera entrega.
+\end{itemize}
 
 \section{Arquitectura del Compilador}
 
@@ -107,6 +145,14 @@ de pruebas, se comenzará con las pruebas de \textbf{Nora}, la cual se espera so
 tener errores en sentencias especificas conservando el funcionamiento original.
 
 \section{Conclusiones}
+
+Gracias a la clase de compiladores nos fue posible definir una buena estructura
+para el programa, por ahora el programa funciona, aunque solo acepta lo básico
+y ciertas palabras clave, por lo que todavía no se puede considerar un compilador
+completo ni usar como uno. Se aprendió que existen diversas herramientas que
+facilitan la creación de compiladores. Para esta primera entrega podemos decir
+que se ha realizado con éxito.
+
 
 
 \end{document}
