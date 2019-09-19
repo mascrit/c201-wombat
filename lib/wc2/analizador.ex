@@ -34,8 +34,6 @@ defmodule Wc2.Analizador do
             if hd(rest_list) == :open_brace do
               statement = parse_statement(tl(rest_list))
 	      
-	      rest_list = tl(rest_list)
-	      #IO.inspect(rest_list)
 	      case statement do
 		{{:error, error_message}, rest_list} ->
                   {{:error, error_message}, tl(rest_list)}
@@ -94,8 +92,8 @@ defmodule Wc2.Analizador do
   def parse_expression(list_token) do
     case hd(list_token) do
       {:const, val} ->
-	tail = tl(list_token)
-        {%Arbol{node: :const, val: val}, tl(list_token)}
+	tail=tl(list_token)
+        {%Arbol{node: :const, val: val}, tail}
       _ -> {{:error, "Value?"}, tl(list_token)}
     end
   end
