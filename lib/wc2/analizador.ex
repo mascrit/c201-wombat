@@ -100,14 +100,4 @@ defmodule Wc2.Analizador do
     end
   end
 
-  def test(list_test) do
-    case parse_program(list_test) do
-      {:error, val} ->
-	:error
-      _ ->
-	:ok
-    end
-  end
-
-
 end
