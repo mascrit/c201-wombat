@@ -18,9 +18,9 @@ defmodule CompiladorwombatTest do
   #      :semicolon,
   #      :close_brace]) == :ok
   # end
-  # test "valid multi digit" do
-  #   assert Compiladorwombat.compile_file("test/stage_1/valid/multi_digit.c") == :ok
-  # end
+  test "valid multi digit" do
+    assert Compiladorwombat.compile_file("test/stage_1/valid/multi_digit.c") == 0
+   end
 
   test "valid new lines" do
     assert Compiladorwombat.compile_file("test/stage_1/valid/newlines.c") == 0
@@ -39,27 +39,27 @@ defmodule CompiladorwombatTest do
   end
 
   test "invalid missing_paren" do
-    assert elem(Compiladorwombat.compile_file("test/stage_1/invalid/missing_paren.c"), 0) == :error
+    assert Compiladorwombat.compile_file("test/stage_1/invalid/missing_paren.c") == 1
   end
 
   test "invalid missing_retval" do
-    assert elem(Compiladorwombat.compile_file("test/stage_1/invalid/missing_retval.c"), 0) == :error
+    assert Compiladorwombat.compile_file("test/stage_1/invalid/missing_retval.c") == 1
   end
 
   test "invalid no_brace" do
-    assert elem(Compiladorwombat.compile_file("test/stage_1/invalid/no_brace.c"), 0) == :error
+    assert Compiladorwombat.compile_file("test/stage_1/invalid/no_brace.c") == 1
   end
 
   test "invalid no_semicolon" do
-    assert elem(Compiladorwombat.compile_file("test/stage_1/invalid/no_semicolon.c"), 0) == :error
+    assert Compiladorwombat.compile_file("test/stage_1/invalid/no_semicolon.c") == 1
   end
 
   test "invalid no_space" do
-    assert elem(Compiladorwombat.compile_file("test/stage_1/invalid/no_space.c"), 0) == :error
+    assert Compiladorwombat.compile_file("test/stage_1/invalid/no_space.c") == 1
   end
 
   test "invalid wrong_case" do
-    assert elem(Compiladorwombat.compile_file("test/stage_1/invalid/wrong_case.c"), 0) == :error
+    assert Compiladorwombat.compile_file("test/stage_1/invalid/wrong_case.c") == 1
   end
 
 

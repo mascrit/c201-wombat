@@ -46,17 +46,25 @@ defmodule Compiladorwombat do
     |> IO.inspect(label: "\n Salida del desinfectante: ")
     |> Wc2.Lexer.scanner_words
     |> IO.inspect(label: "\n Salida Lexer: ")
-    |> Wc2.Analizador.parse_program
-    |> IO.inspect(label: "\nSalida parser: ")
-
     case sts do
       {:error, text} ->
-	{:error, text}
+	IO.inspect({:error, text})
+	1
       _ ->
-	sts
-	|> Wc2.CodeGen.gen_code()
-	|> Wc2.Linker.get_bin(asm_path)
-	0
+	sts = sts
+	|> Wc2.Analizador.parse_program
+	|> IO.inspect(label: "\nSalida parser: ")
+
+	case sts do
+	  {:error, text} ->
+	    IO.inspect{:error, text}
+	    1
+	  _ ->
+	    sts
+	    |> Wc2.CodeGen.gen_code()
+	    |> Wc2.Linker.get_bin(asm_path)
+	    0
+	end
     end
   end
 

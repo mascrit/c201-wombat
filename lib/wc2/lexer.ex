@@ -18,14 +18,21 @@ defmodule Wc2.Lexer do
   Lee un archivo y devuelve una lista de tokens
   """
   def scanner_words(file_whitout_spaces) do
+
     IO.inspect(file_whitout_spaces)
-    Enum.flat_map(file_whitout_spaces, &lexer_raw_tokens/1)
+    tuple = Enum.flat_map(file_whitout_spaces, &lexer_raw_tokens/1)
+    if {:error, "misspeled in 'return'"} in tuple do
+      {:error, "misspeled in 'return'"}
+    else
+      tuple
+    end
   end
   
   def get_constant(prog) do
-    case Regex.run(~r/^\d+/,prog) do
+    case Regex.run(~r/\d+/,prog) do
       [value] -> {{:const, String.to_integer(value)},
 		 String.trim_leading(prog,value)}
+      _ -> {:error, "constan error"}
     end
   end
 
@@ -38,14 +45,24 @@ defmodule Wc2.Lexer do
 	")" <> rest -> {:close_paren, rest}
         "{"<> rest -> {:open_brace, rest}
         "}"<> rest -> {:close_brace, rest}
-        "return" <> rest -> {:kreturn, rest}
-        ";"<> rest -> {:semicolon, rest}
+        "return" <> rest ->
+	  if "return"<>rest == "return" do
+	    {:kreturn, rest}
+	  else
+	    {:error, "misspeled in 'return'"}
 
+	  end
+            ";"<> rest -> {:semicolon, rest}
         rest -> get_constant(rest)
       end
-
-    remaining_tokens =lexer_raw_tokens(rest)
-    [token | remaining_tokens]
+    IO.inspect({token,rest})
+    if token == :error do
+      [{token, rest}]
+    else
+      remaining_tokens =lexer_raw_tokens(rest)
+    
+      [token | remaining_tokens]
+    end
   end
   
 
