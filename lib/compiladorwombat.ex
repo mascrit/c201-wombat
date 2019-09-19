@@ -24,14 +24,14 @@ defmodule Compiladorwombat do
     print_help_message()
   end
 
-  def process_args({_, _, _})do
-    IO.puts("\n compiladorwombat --help para imprimir la ayuda")
-  end
-
-
   def process_args({_, [file_name], _})do
     compile_file(file_name)
   end
+
+  # def process_args({_, _, _})do
+  #   IO.puts("\n compiladorwombat --help para imprimir la ayuda")
+  # end
+
   
   defp print_help_message do
     IO.puts("\compiladorwombat ruta/nombre_del_archivo.c \n")
