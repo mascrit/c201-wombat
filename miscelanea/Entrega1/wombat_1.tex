@@ -8,7 +8,63 @@
 \usepackage{subfigure}
 \usepackage{float}
 \usepackage{fancyhdr}
+\usepackage{appendix}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+
 \pagestyle{fancy}
+
+\usepackage{times}
+
+\usepackage{color}
+\definecolor{gray97}{gray}{.97}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray45}{gray}{.45}
+
+\usepackage{listings}
+\lstset{ frame=Ltb,
+framerule=0pt,
+aboveskip=0.5cm,
+framextopmargin=3pt,
+framexbottommargin=3pt,
+framexleftmargin=0.4cm,
+framesep=0pt,
+rulesep=.4pt,
+backgroundcolor=\color{gray97},
+rulesepcolor=\color{black},
+%
+stringstyle=\ttfamily,
+showstringspaces = false,
+basicstyle=\small\ttfamily,
+commentstyle=\color{gray45},
+keywordstyle=\bfseries,
+%
+numbers=left,
+numbersep=15pt,
+numberstyle=\tiny,
+numberfirstline = false,
+breaklines=true,
+}
+
+% minimizar fragmentado de listados
+\lstnewenvironment{listing}[1][]
+{\lstset{#1}\pagebreak[0]}{\pagebreak[0]}
+
+\lstdefinestyle{consola}
+{basicstyle=\scriptsize\bf\ttfamily,
+backgroundcolor=\color{gray75},
+}
+
+\lstdefinestyle{C}
+{language=C,
+}
+
 
 
 
@@ -26,7 +82,7 @@
 
     
     \vfill
-    \LARGE{Equipo: Wombat}
+    \LARGE{\textbf{Wombat}}
     \vfill
   \end{center}  
 
@@ -37,11 +93,11 @@
   
   \Large{Equipo de Desarrollo:
     
-    \hspace{2cm}Romero Andrade Cristian
+    \hspace{2cm}Romero Andrade Cristian\hfill -\hfill PMP, Arquitecto
     
-    \hspace{2cm}Arguelles Macosay Mariana}
+    \hspace{2cm}Arguelles Macosay Mariana\hfill -\hfill Integradora, Tester}
   \vfill
-  \Large{Entrega: 16 de septiembre del 2019}
+  \Large{Entrega V 0.1: 16 de septiembre del 2019}
   
 
   % \vfill
@@ -50,11 +106,14 @@
   
 \end{titlepage}
 
+\tableofcontents{}
+
 \section{Introducción}
 
 \begin{flushright}
 \textit{Un compilador para un pequeño Subconjunto de C,}  
 \end{flushright}
+
 
 Este proyecto trata acerca de crear un compilador en uno de los lenguajes de
 programación permitidos, en este caso hemos elegido Elixir como el lenguaje
@@ -71,6 +130,27 @@ una estructura completa.
 
 \section{Plan de Proyecto}
 
+\subsection{Descripción del Proyecto}
+
+El proyecto total consiste en un compilador de escala altamente reducida de
+\textit{C} la cual consiste en lo siguiente:
+
+\begin{lstlisting}[style=C]
+int main() {
+  return (3+4 <+ 4 || 1&& != 3>-6);
+
+}
+\end{lstlisting}
+
+Para esta primera entrega el alcance llega a compilar el siguiente código
+
+\begin{lstlisting}[style=C]
+int main() {
+  return 2;
+}
+\end{lstlisting}
+
+
 \begin{figure}[H]
   \centering
   \subfigure{\includegraphics[width=17cm]{../img/pag-2}}
@@ -83,18 +163,46 @@ Las próximas tareas al cerrar esta entrega, a parte de la adición de los
 operadores unarios, será obtener el error de compilación junto con el número
 de línea.
 
-\subsection{Obstáculos}
+
+
+\subsection{Entorno de Trabajo}
+\begin{itemize}
+\item  Por petición del cliente todo entrégale relacionado con
+  el proyecto se llevará a través de la plataforma de \href{https://github.com}
+  {GitHub}.
+  Más adelante se describe como se esta organizado el proyecto.
+\item Se utilizará Elixir por las facilidades del lenguaje para el desarrollo
+  específico del proyecto.
+\item El editor es libre para cada desarrollador, aunque se recomienda el uso
+  de \textit{Visual Studio Code} y \textit{Emacs} por el soporte del lenguaje
+  (vscode-elixir y alchemist-mode respectivamente).
+  
+\item Se usará \textit{gcc} para enlazar el código ensamblador con la máquina.
+\item Por ende se utiliza el gestor de versiones git.
+
+\end{itemize}
+
+\subsection{Actividades del equipo}
+
+Se espera la siguiente rutina para el desarrollo del proyecto:
 
 \begin{itemize}
-\item Si no se obtiene respuesta constante con el equipo y sus avances, el trabajo
-  se juntará y \textit{puede} no llegar al objetivo de esta primera entrega.
+\item Se trabajará en la rama \textit{dev}, cada fusión con \textit{master} se
+  aprobará siempre y cuando la adición de un funcionamiento este completa y
+  no haya cambios con el objetivo del proyecto.
+\item Toda comunicación va a ser a través de \textit{Discord} y otro medio de
+  mensajería instantánea.
 \end{itemize}
 
 \section{Arquitectura del Compilador}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=17cm]{../img/Compilador}
+\end{figure}
+
 La arquitectura del compilador es simple utilizado el gestor de proyectos de \textit{elixir}
-\textit{mix}, la cual genera las herramientas suficientes para las pruebas y compilación. La
-siguiente estructura que se decidió fue la siguiente:
+\textit{mix}, la cual genera las herramientas suficientes para las pruebas y compilación. La estructura que se decidió fue la siguiente:
 
 \begin{itemize}
 \item \_build
@@ -152,6 +260,12 @@ y ciertas palabras clave, por lo que todavía no se puede considerar un compilad
 completo ni usar como uno. Se aprendió que existen diversas herramientas que
 facilitan la creación de compiladores. Para esta primera entrega podemos decir
 que se ha realizado con éxito.
+
+
+\appendix
+\addappheadtotoc
+\appendixpage
+Repositorio del Proyecto \hfill$<$\url{https://github.com/hiphoox/c201-wombat}$>$
 
 
 
