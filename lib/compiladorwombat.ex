@@ -4,9 +4,9 @@ defmodule Compiladorwombat do
   """
 
   @commands %{
-    'help' => 'Ayuda',
-    's' => 'Imprime codigo en asm',
-    'o' => 'Salida'
+    'h' => 'Ayuda',
+#    's' => 'Imprime codigo en asm',
+#    'o' => 'Salida'
   }
 
   def main(args) do
@@ -24,14 +24,19 @@ defmodule Compiladorwombat do
     print_help_message()
   end
 
+  def process_args({_, _, _})do
+    IO.puts("\n compiladorwombat --help para imprimir la ayuda")
+  end
+
+
   def process_args({_, [file_name], _})do
     compile_file(file_name)
   end
   
   defp print_help_message do
-    IO.puts("\nnqcc --help file_name \n")
+    IO.puts("\compiladorwombat ruta/nombre_del_archivo.c \n")
 
-    IO.puts("\nThe compiler supports following options:\n")
+    IO.puts("\nEl compilador soporta las siguientes opciones:\n")
 
     @commands
     |> Enum.map(fn {command, description} -> IO.puts("  #{command} - #{description}") end)
