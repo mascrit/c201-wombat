@@ -81,6 +81,9 @@
         <resource id="1" name="Arguelles Macosay Mariana" function="SoftwareDevelopment:2" contacts="marianita_maple@comunidad.unam.mx" phone="">
             <custom-property definition-id="tpc0" value="Integradora"/>
         </resource>
+        <resource id="2" name="Rocha Garcia Erick Hazel" function="SoftwareDevelopment:2" contacts="zart_qrom@outlook.com" phone="">
+            <custom-property definition-id="tpc0" value="Plan Manager"/>
+        </resource>
     </resources>
     <allocations>
         <allocation task-id="44" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
