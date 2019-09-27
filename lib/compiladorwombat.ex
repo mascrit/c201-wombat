@@ -3,11 +3,6 @@ defmodule Compiladorwombat do
   El compilador del equipo Wombat
   """
 
-  @commands %{
-    'h' => 'Ayuda',
-#    's' => 'Imprime codigo en asm',
-#    'o' => 'Salida'
-  }
 
   def main(args) do
     args
@@ -16,30 +11,47 @@ defmodule Compiladorwombat do
   end
 
   def parse_args(args) do
-    OptionParser.parse(args, switches: [help: :boolean, o: :boolean])
+    OptionParser.parse(args,
+      switches: [help: :boolean],
+      aliases: [h: :help])
 
   end
 
-  def process_args({[help: true], _, _}) do
-    print_help_message()
-  end
-
-  def process_args({_, [file_name], _})do
-    compile_file(file_name)
+  def process_args(opts) do
+    case opts do
+      {_, [filepath], _} ->
+	compile_file(filepath)
+	
+      {[help: true], _, _} ->
+	IO.puts(print_manual())
+	
+	_ -> IO.puts(print_help_message())
+    end
   end
 
   # def process_args({_, _, _})do
   #   IO.puts("\n compiladorwombat --help para imprimir la ayuda")
   # end
 
+  defp print_manual() do
+    """
+
+    $ compiladorwombat [COMANDOS] [PATH/FILE]
+
+    Ingrese el comando o la ruta del archivo.c
+    
+    Comandos:
+    \t--help,\t-h\tImprime el manual
+
+
+    """
+  end
   
-  defp print_help_message do
-    IO.puts("\compiladorwombat ruta/nombre_del_archivo.c \n")
+  defp print_help_message() do
+      """
 
-    IO.puts("\nEl compilador soporta las siguientes opciones:\n")
-
-    @commands
-    |> Enum.map(fn {command, description} -> IO.puts("  #{command} - #{description}") end)
+      --help,\t-h\tImprime la ayuda
+      """
   end
 
   def compile_file(path) do
