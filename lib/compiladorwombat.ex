@@ -72,25 +72,31 @@ defmodule Compiladorwombat do
   end
 
   def compile_file(path) do
-    IO.puts("\e[0;32mCompilado\e[0;0m: " <> path)
-    asm_path = String.replace_trailing(path, ".c", ".s")
+    if File.exists?(path) do
+      IO.puts("\e[0;32mCompilado\e[0;0m: " <> path)
+      asm_path = String.replace_trailing(path, ".c", ".s")
 
 
-    sts = File.read!(path)
-    with {:ok, something} <- Wc2.Lexer.sanitizer(sts),
-	 {:ok, something} <- Wc2.Lexer.scanner_words(something),
-	 {:ok, something} <- Wc2.Analizador.parse_program(something) do
-      something |> Wc2.CodeGen.gen_code |> Wc2.Linker.get_bin(asm_path, :false)
-      0
-    else
-      {:error, something} ->
-	IO.inspect something
+      sts = File.read!(path)
+      with {:ok, something} <- Wc2.Lexer.sanitizer(sts),
+	   {:ok, something} <- Wc2.Lexer.scanner_words(something),
+	   {:ok, something} <- Wc2.Analizador.parse_program(something) do
+	something |> Wc2.CodeGen.gen_code |> Wc2.Linker.get_bin(asm_path, :false)
+	0
+      else
+	{:error, something} ->
+	  IO.inspect something
 	1
-      _ -> 1 
+	_ -> 1 
+      end
+    else
+      IO.puts("\e[0;31mError\e[0;0m: No existe el fichero o el directorio")
+      1
     end
   end
 
-   def compile_file(path, dest_path) do
+  def compile_file(path, dest_path) do
+    if File.exists?(path) do
     IO.puts("\e[0;32mCompilado\e[0;0m - ruta personalizada: " <> path)
     asm_path = String.replace_trailing(path, ".c", ".s")
     
@@ -106,6 +112,10 @@ defmodule Compiladorwombat do
 	IO.inspect something
 	1
       _ -> 1 
+    end
+    else
+      IO.puts("\e[0;31mError\e[0;0m: No existe el fichero o el directorio")
+      1
     end
   end
 
