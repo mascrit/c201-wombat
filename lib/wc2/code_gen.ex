@@ -2,8 +2,8 @@ defmodule Wc2.CodeGen do
 
   def gen_code(tree) do
     code = travel_tree(tree)
-    IO.puts("\nCode Generator output:")
-    IO.puts(code)
+    #IO.puts("\nCode Generator output:")
+    #IO.puts(code)
     code
   end
 

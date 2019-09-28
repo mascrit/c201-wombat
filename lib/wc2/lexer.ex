@@ -19,7 +19,6 @@ defmodule Wc2.Lexer do
   """
   def scanner_words(file_whitout_spaces) do
 
-    IO.inspect(file_whitout_spaces)
     tuple = Enum.flat_map(file_whitout_spaces, &lexer_raw_tokens/1)
     if {:error, "misspeled in 'return'"} in tuple do
       {:error, "misspeled in 'return'"}
@@ -55,7 +54,6 @@ defmodule Wc2.Lexer do
             ";"<> rest -> {:semicolon, rest}
         rest -> get_constant(rest)
       end
-    IO.inspect({token,rest})
     if token == :error do
       [{token, rest}]
     else
