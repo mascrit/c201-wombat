@@ -11,7 +11,7 @@ defmodule Wc2.Lexer do
   """
   def sanitizer(file) do
     file_whitout_spaces = String.trim(file)
-    Regex.split(~r/\s+/, file_whitout_spaces)
+    {:ok, Regex.split(~r/\s+/, file_whitout_spaces)}
   end
   
   @doc """
@@ -24,7 +24,7 @@ defmodule Wc2.Lexer do
     if {:error, "misspeled in 'return'"} in tuple do
       {:error, "misspeled in 'return'"}
     else
-      tuple
+      {:ok,tuple}
     end
   end
   

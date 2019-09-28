@@ -13,7 +13,7 @@ defmodule Wc2.Analizador do
       {nodefun, rest_list} ->
         case rest_list do
           [] ->
-	    %Arbol{node: :program, lleaf: nodefun}
+	    {:ok, %Arbol{node: :program, lleaf: nodefun}}
           _ -> {:error, "Error more elements"}
         end
     end

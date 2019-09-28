@@ -12,15 +12,28 @@ defmodule Compiladorwombat do
 
   def parse_args(args) do
     OptionParser.parse(args,
-      switches: [help: :boolean],
-      aliases: [h: :help])
+      switches: [
+	help: :boolean,
+	assembler: :string,
+	output: :string],
+      aliases: [
+	h: :help,
+	s: :assembler,
+	o: :output])
 
   end
 
   def process_args(opts) do
+    IO.inspect opts
     case opts do
       {_, [filepath], _} ->
-	compile_file(filepath)
+	System.halt(compile_file(filepath))
+
+      {[output: filepathOut], [filepath], _} ->
+	System.halt(compile_file(filepath, filepathOut))
+
+      {[output: filepathOut], _, _} ->
+	IO.puts("e[0;31mError\e[0m: No se especifica el archivo")
 	
       {[help: true], _, _} ->
 	IO.puts(print_manual())
@@ -41,7 +54,9 @@ defmodule Compiladorwombat do
     Ingrese el comando o la ruta del archivo.c
     
     Comandos:
-    \t--help,\t-h\tImprime el manual
+    \t--help, -h\tImprime el manual
+    \t--assembler, -s\tAsigna la salida del archivo ensamblador
+    \t--output, -o\tAsigna la salida del binario
 
 
     """
@@ -57,31 +72,36 @@ defmodule Compiladorwombat do
   def compile_file(path) do
     IO.puts("Compilado: " <> path)
     asm_path = String.replace_trailing(path, ".c", ".s")
-    
-    sts =File.read!(path)
-    |> Wc2.Lexer.sanitizer
-    |> IO.inspect(label: "\n Salida del desinfectante: ")
-    |> Wc2.Lexer.scanner_words
-    |> IO.inspect(label: "\n Salida Lexer: ")
-    case sts do
-      {:error, text} ->
-	IO.inspect({:error, text})
-	1
-      _ ->
-	sts = sts
-	|> Wc2.Analizador.parse_program
-	|> IO.inspect(label: "\nSalida parser: ")
 
-	case sts do
-	  {:error, text} ->
-	    IO.inspect{:error, text}
-	    1
-	  _ ->
-	    sts
-	    |> Wc2.CodeGen.gen_code()
-	    |> Wc2.Linker.get_bin(asm_path)
-	    0
-	end
+
+    sts = File.read!(path)
+    with {:ok, something} <- Wc2.Lexer.sanitizer(sts),
+	 {:ok, something} <- Wc2.Lexer.scanner_words(something),
+	 {:ok, something} <- Wc2.Analizador.parse_program(something) do
+      something |> Wc2.CodeGen.gen_code |> Wc2.Linker.get_bin(asm_path, :false)
+      0
+    else
+      {:error, something} ->
+	IO.inspect something
+	1
+      _ -> 1 
+    end
+  end
+
+   def compile_file(path, dest_path) do
+    IO.puts("Compilado: " <> path)
+
+    sts = File.read!(path)
+    with {:ok, something} <- Wc2.Lexer.sanitizer(sts),
+	 {:ok, something} <- Wc2.Lexer.scanner_words(something),
+	 {:ok, something} <- Wc2.Analizador.parse_program(something) do
+      something |> Wc2.CodeGen.gen_code |> Wc2.Linker.get_bin(dest_path, :false)
+      0
+    else
+      {:error, something} ->
+	IO.inspect something
+	1
+      _ -> 1 
     end
   end
 
