@@ -72,7 +72,7 @@ defmodule Compiladorwombat do
   end
 
   def compile_file(path) do
-    IO.puts("Compilado: " <> path)
+    IO.puts("\e[0;32mCompilado\e[0;0m: " <> path)
     asm_path = String.replace_trailing(path, ".c", ".s")
 
 
@@ -91,7 +91,7 @@ defmodule Compiladorwombat do
   end
 
    def compile_file(path, dest_path) do
-    IO.puts("Compilado - ruta personalizada: " <> path)
+    IO.puts("\e[0;32mCompilado\e[0;0m - ruta personalizada: " <> path)
     asm_path = String.replace_trailing(path, ".c", ".s")
     
     sts = File.read!(path)
