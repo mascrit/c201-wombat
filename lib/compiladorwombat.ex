@@ -24,21 +24,24 @@ defmodule Compiladorwombat do
   end
 
   def process_args(opts) do
-    IO.inspect opts
     case opts do
-      {_, [filepath], _} ->
-	System.halt(compile_file(filepath))
-
       {[output: filepathOut], [filepath], _} ->
 	System.halt(compile_file(filepath, filepathOut))
 
-      {[output: filepathOut], _, _} ->
-	IO.puts("e[0;31mError\e[0m: No se especifica el archivo")
+      {_, [filepath], _} ->
+	System.halt(compile_file(filepath))
+      
+      {[output: _], _, _} ->
+	IO.puts("\e[0;31mError\e[0m: No se especifica el archivo")
+	System.halt(1)
 	
       {[help: true], _, _} ->
 	IO.puts(print_manual())
+	System.halt(0)
 	
-	_ -> IO.puts(print_help_message())
+	_ ->
+	IO.puts(print_help_message())
+	System.halt(1)
     end
   end
 
@@ -58,13 +61,12 @@ defmodule Compiladorwombat do
     \t--assembler, -s\tAsigna la salida del archivo ensamblador
     \t--output, -o\tAsigna la salida del binario
 
-
     """
   end
   
   defp print_help_message() do
       """
-
+      \e[0;31mError fatal\e[0;0m: No hay archivos de entrada
       --help,\t-h\tImprime la ayuda
       """
   end
@@ -89,13 +91,15 @@ defmodule Compiladorwombat do
   end
 
    def compile_file(path, dest_path) do
-    IO.puts("Compilado: " <> path)
-
+    IO.puts("Compilado - ruta personalizada: " <> path)
+    asm_path = String.replace_trailing(path, ".c", ".s")
+    
     sts = File.read!(path)
     with {:ok, something} <- Wc2.Lexer.sanitizer(sts),
 	 {:ok, something} <- Wc2.Lexer.scanner_words(something),
 	 {:ok, something} <- Wc2.Analizador.parse_program(something) do
-      something |> Wc2.CodeGen.gen_code |> Wc2.Linker.get_bin(dest_path, :false)
+      something |> Wc2.CodeGen.gen_code |> Wc2.Linker.get_bin(asm_path, dest_path)
+      
       0
     else
       {:error, something} ->
