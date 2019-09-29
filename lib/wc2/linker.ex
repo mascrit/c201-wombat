@@ -1,15 +1,13 @@
 defmodule Wc2.Linker do
   def get_bin(assembler, assembly_path, route) do
 
-    if route do 
-	abs_route = Path.absname(Path.dirname(route)<>"/"<>route)
-	asm_file = Path.basename(assembly_path)
-	dir_asm = Path.dirname(assembly_path)
-	
-	asm_path = dir_asm<>"/"<>asm_file
-	File.write!(asm_path, assembler)
-	System.cmd("gcc", [asm_file, "-o"<>abs_route],
-	  cd: dir_asm)
+    if route do
+
+      file_work_wo_ext = (Path.dirname(route)<>"/"
+	<>Path.basename(route, Path.extname(route)))
+      asm_out = file_work_wo_ext<>".s"
+      File.write!(asm_out, assembler)
+      System.cmd("gcc", [asm_out, "-o"<>route])
     else
     	assembly_file_name = Path.basename(assembly_path)
 	binary_file_name = Path.basename(assembly_path, ".s")
