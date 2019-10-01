@@ -35,6 +35,11 @@ Limpiar binarios del proyecto
 make clean
 ```
 
+Ubicación de las entregas (Reportes)
+---
+`miscelanea/Entrega#`
+
+
 Tutorial de elixirschool[^1].
 
 

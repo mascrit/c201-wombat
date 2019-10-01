@@ -11,7 +11,7 @@ defmodule Wc2.Lexer do
   """
   def sanitizer(file) do
     file_whitout_spaces = String.trim(file)
-    Regex.split(~r/\s+/, file_whitout_spaces)
+    {:ok, Regex.split(~r/\s+/, file_whitout_spaces)}
   end
   
   @doc """
@@ -19,12 +19,11 @@ defmodule Wc2.Lexer do
   """
   def scanner_words(file_whitout_spaces) do
 
-    IO.inspect(file_whitout_spaces)
     tuple = Enum.flat_map(file_whitout_spaces, &lexer_raw_tokens/1)
     if {:error, "misspeled in 'return'"} in tuple do
       {:error, "misspeled in 'return'"}
     else
-      tuple
+      {:ok,tuple}
     end
   end
   
@@ -55,7 +54,6 @@ defmodule Wc2.Lexer do
             ";"<> rest -> {:semicolon, rest}
         rest -> get_constant(rest)
       end
-    IO.inspect({token,rest})
     if token == :error do
       [{token, rest}]
     else
