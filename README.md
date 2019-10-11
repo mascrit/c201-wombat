@@ -4,7 +4,7 @@
 
 - Romero Andrade Cristian
 - Arguelles Macosay Mariana
-
+- Rocha García Erick Hazel
 
 ## Ejecución
 
