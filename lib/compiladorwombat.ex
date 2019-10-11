@@ -59,7 +59,7 @@ defmodule Compiladorwombat do
     Comandos:
     \t--help, -h\tImprime el manual
     \t--assembler, -s\tAsigna la salida del archivo ensamblador
-    \t--output, -o\tAsigna la salida del binario
+    \t--output, -o\t [ -o/--output [FILE_OUT]] Asigna la salida del binario
 
     """
   end
